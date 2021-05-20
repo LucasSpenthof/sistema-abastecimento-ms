@@ -16,13 +16,36 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String UF;
 	
 	public Estado() {
 		
 	}
 
-	public Estado(Long id, String uF) {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUF() {
+		return UF;
+	}
+
+	public void setUF(String uF) {
+		UF = uF;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
+	
+	public Estado(Long id, String uF) {;
 		this.id = id;
 		UF = uF;
 	}
@@ -57,25 +80,6 @@ public class Estado implements Serializable {
 			return false;
 		return true;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUF() {
-		return UF;
-	}
-
-	public void setUF(String uF) {
-		UF = uF;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
+	
 }

@@ -2,11 +2,18 @@ package com.abastecimento.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.abastecimento.entities.enums.Combustivel;
 
 @Entity
 @Table(name = "tb_veiculo")
@@ -16,14 +23,29 @@ public class Veiculo implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private int ano;
+	
+	private Integer ano;
+	
 	private String placa;
+	
 	private String renavan;
+	
 	private String patrimonio;
-	private String chasi;
+	
+	private String chassi;
+	
 	private String versao;
-	private String capacidadeTanque;
+	
+	@Column(name = "capacidade_tanque")
+	private Integer capacidadeTanque;
+	
+	@Column(name = "tipo_combustivel")
+	@Enumerated(EnumType.ORDINAL)
 	private Combustivel tipoCombustivel;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_fk")
+	private Tipo tipo;
 	
 	public Veiculo() {
 		
@@ -37,11 +59,11 @@ public class Veiculo implements Serializable{
 		this.id = id;
 	}
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
@@ -69,12 +91,12 @@ public class Veiculo implements Serializable{
 		this.patrimonio = patrimonio;
 	}
 
-	public String getChasi() {
-		return chasi;
+	public String getChassi() {
+		return chassi;
 	}
 
-	public void setChasi(String chasi) {
-		this.chasi = chasi;
+	public void setChassi(String chassi) {
+		this.chassi = chassi;
 	}
 
 	public String getVersao() {
@@ -85,11 +107,11 @@ public class Veiculo implements Serializable{
 		this.versao = versao;
 	}
 
-	public String getCapacidadeTanque() {
+	public Integer getCapacidadeTanque() {
 		return capacidadeTanque;
 	}
 
-	public void setCapacidadeTanque(String capacidadeTanque) {
+	public void setCapacidadeTanque(Integer capacidadeTanque) {
 		this.capacidadeTanque = capacidadeTanque;
 	}
 
@@ -101,21 +123,45 @@ public class Veiculo implements Serializable{
 		this.tipoCombustivel = tipoCombustivel;
 	}
 
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Veiculo(Long id, Integer ano, String placa, String renavan, String patrimonio, String chassi, String versao,
+			Integer capacidadeTanque, Combustivel tipoCombustivel, Tipo tipo) {
+		this.id = id;
+		this.ano = ano;
+		this.placa = placa;
+		this.renavan = renavan;
+		this.patrimonio = patrimonio;
+		this.chassi = chassi;
+		this.versao = versao;
+		this.capacidadeTanque = capacidadeTanque;
+		this.tipoCombustivel = tipoCombustivel;
+		this.tipo = tipo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ano;
+		result = prime * result + ((ano == null) ? 0 : ano.hashCode());
 		result = prime * result + ((capacidadeTanque == null) ? 0 : capacidadeTanque.hashCode());
-		result = prime * result + ((chasi == null) ? 0 : chasi.hashCode());
+		result = prime * result + ((chassi == null) ? 0 : chassi.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((patrimonio == null) ? 0 : patrimonio.hashCode());
 		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
 		result = prime * result + ((renavan == null) ? 0 : renavan.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime * result + ((tipoCombustivel == null) ? 0 : tipoCombustivel.hashCode());
 		result = prime * result + ((versao == null) ? 0 : versao.hashCode());
 		return result;
 	}
@@ -129,17 +175,20 @@ public class Veiculo implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Veiculo other = (Veiculo) obj;
-		if (ano != other.ano)
+		if (ano == null) {
+			if (other.ano != null)
+				return false;
+		} else if (!ano.equals(other.ano))
 			return false;
 		if (capacidadeTanque == null) {
 			if (other.capacidadeTanque != null)
 				return false;
 		} else if (!capacidadeTanque.equals(other.capacidadeTanque))
 			return false;
-		if (chasi == null) {
-			if (other.chasi != null)
+		if (chassi == null) {
+			if (other.chassi != null)
 				return false;
-		} else if (!chasi.equals(other.chasi))
+		} else if (!chassi.equals(other.chassi))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -161,6 +210,13 @@ public class Veiculo implements Serializable{
 				return false;
 		} else if (!renavan.equals(other.renavan))
 			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		if (tipoCombustivel != other.tipoCombustivel)
+			return false;
 		if (versao == null) {
 			if (other.versao != null)
 				return false;
@@ -169,18 +225,7 @@ public class Veiculo implements Serializable{
 		return true;
 	}
 
-	public Veiculo(Long id, int ano, String placa, String renavan, String patrimonio, String chasi, String versao,
-			String capacidadeTanque, Combustivel tipoCombustivel) {
-		this.id = id;
-		this.ano = ano;
-		this.placa = placa;
-		this.renavan = renavan;
-		this.patrimonio = patrimonio;
-		this.chasi = chasi;
-		this.versao = versao;
-		this.capacidadeTanque = capacidadeTanque;
-		this.tipoCombustivel = tipoCombustivel;
-	}
+	
 	
 
 }
