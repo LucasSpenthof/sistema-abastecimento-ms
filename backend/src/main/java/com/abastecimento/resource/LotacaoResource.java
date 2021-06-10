@@ -3,6 +3,8 @@ package com.abastecimento.resource;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +42,7 @@ public class LotacaoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<LotacaoDTO> insert(@RequestBody LotacaoDTO dto){
+	public ResponseEntity<LotacaoDTO> insert(@Valid @RequestBody LotacaoDTO dto){
 		dto = service.insert(dto);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -49,7 +51,7 @@ public class LotacaoResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<LotacaoDTO> update(@PathVariable Long id, @RequestBody LotacaoDTO dto){
+	public ResponseEntity<LotacaoDTO> update(@PathVariable Long id,@Valid @RequestBody LotacaoDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}

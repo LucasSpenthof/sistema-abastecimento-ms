@@ -2,6 +2,8 @@ package com.abastecimento.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.abastecimento.entities.Tipo;
 import com.abastecimento.entities.Veiculo;
 import com.abastecimento.entities.enums.Combustivel;
@@ -9,15 +11,24 @@ import com.abastecimento.entities.enums.Combustivel;
 public class VeiculoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;	
+	private Long id;
+	@NotBlank(message="O campo é obrigatório")
 	private Integer ano;	
+	@NotBlank(message="O campo é obrigatório")
 	private String placa;	
+	@NotBlank(message="O campo é obrigatório")
 	private String renavan;	
+	@NotBlank(message="O campo é obrigatório")
 	private String patrimonio;	
+	@NotBlank(message="O campo é obrigatório")
 	private String chassi;	
+	@NotBlank(message="O campo é obrigatório")
 	private String versao;
+	@NotBlank(message="O campo é obrigatório")
 	private Integer capacidadeTanque;
+	@NotBlank(message="O campo é obrigatório")
 	private Combustivel tipoCombustivel;
+	@NotBlank(message="O campo é obrigatório")
 	private Tipo tipo;
 	
 	public VeiculoDTO() {

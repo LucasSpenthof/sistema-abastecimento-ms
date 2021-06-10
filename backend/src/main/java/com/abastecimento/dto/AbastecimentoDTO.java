@@ -3,6 +3,10 @@ package com.abastecimento.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.abastecimento.entities.Abastecimento;
 import com.abastecimento.entities.AutoPosto;
 import com.abastecimento.entities.Veiculo;
@@ -12,13 +16,22 @@ public class AbastecimentoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@CPF
+	@NotBlank(message="O campo é obrigatório")
 	private String cpfMotorista;
+	@NotBlank(message="O campo é obrigatório")
 	private Instant dataDoAbastecimento;
+	@NotBlank(message="O campo é obrigatório")
 	private Long quilometragem;
+	@NotBlank(message="O campo é obrigatório")
 	private Combustivel combustivel;
+	@NotBlank(message="O campo é obrigatório")
 	private Integer quantidadeEmLitros;	
+	@NotBlank(message="O campo é obrigatório")
 	private Double valorPorLitro;
+	@NotBlank(message="O campo é obrigatório")
 	private AutoPosto autoPosto;
+	@NotBlank(message="O campo é obrigatório")
 	private Veiculo veiculo;
 	
 	public AbastecimentoDTO() {

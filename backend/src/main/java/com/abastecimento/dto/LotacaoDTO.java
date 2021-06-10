@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import com.abastecimento.entities.Cidade;
 import com.abastecimento.entities.Lotacao;
 import com.abastecimento.entities.Veiculo;
@@ -12,11 +15,18 @@ public class LotacaoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotBlank(message="O campo é obrigatório")
 	private String descricao;
+	@Email
+	@NotBlank(message="O campo é obrigatório")
 	private String email;
+	@NotBlank(message="O campo é obrigatório")
 	private String site;
+	@NotBlank(message="O campo é obrigatório")
 	private String telefone;
+	@NotBlank(message="O campo é obrigatório")
 	private String endereco;
+	@NotBlank(message="O campo é obrigatório")
 	private Cidade cidade;
 	Set<Veiculo> veiculos = new HashSet<>();
 	

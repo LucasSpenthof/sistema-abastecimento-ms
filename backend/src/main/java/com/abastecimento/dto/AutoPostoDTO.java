@@ -2,6 +2,12 @@ package com.abastecimento.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import com.abastecimento.entities.AutoPosto;
 import com.abastecimento.entities.Cidade;
 
@@ -9,11 +15,19 @@ public class AutoPostoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@Size(min=6, max=120, message = "o temanho mínimo é de 6 caracteres (max 120)")
+	@NotBlank(message="O campo é obrigatório")
 	private String nomeFantasia;
+	@NotBlank(message="O campo é obrigatório")
 	private String telefone;
+	@Email
 	private String email;
+	@CNPJ(message="O CNPJ está incorreto")
+	@NotBlank(message="O campo é obrigatório")
 	private String CNPJ;
+	@NotBlank(message="O campo é obrigatório")
 	private String endereco;
+	@NotBlank(message="O campo é obrigatório")
 	private Cidade cidade;
 	
 	public AutoPostoDTO(){
